@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>完善个人信息 - Project A3 iFly</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; padding-top: 50px; }
+        .setup-container { max-width: 500px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body>
+    <div class="setup-container">
+        <h2 class="text-center mb-4">📝 完善基本信息</h2>
+        <p class="text-muted text-center mb-4">为了提供更好的服务，请填写您的基本资料。</p>
+        
+        <form th:action="@{/profile-setup}" method="post">
+            <div class="mb-3">
+                <label for="fullName" class="form-label">全名</label>
+                <input type="text" class="form-control" id="fullName" name="fullName" required placeholder="请输入您的姓名">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">电子邮箱</label>
+                <input type="email" class="form-control" id="email" name="email" required placeholder="name@example.com">
+            </div>
+            <div class="mb-3">
+                <label for="phoneNumber" class="form-label">手机号码</label>
+                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required placeholder="请输入手机号">
+            </div>
+            <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-primary">提交并保存</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
