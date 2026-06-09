@@ -22,6 +22,23 @@ public class UserService {
                 });
     }
 
+    public User registerUser(String username, String password) {
+        if (userRepository.findByUsername(username).isPresent()) {
+            throw new RuntimeException("用户名已存在");
+        }
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password); // 实际项目中应加密存储
+        user.setFirstLogin(true);
+        user.setHasFilledInfo(false);
+        return userRepository.save(user);
+    }
+
+    public Optional<User> authenticate(String username, String password) {
+        return userRepository.findByUsername(username)
+                .filter(user -> user.getPassword().equals(password));
+    }
+
     public void updateUser(User user) {
         userRepository.save(user);
     }

@@ -2,6 +2,7 @@ package cn.org.rsrs.project.project_a3_ifly.controller;
 
 import cn.org.rsrs.project.project_a3_ifly.model.User;
 import cn.org.rsrs.project.project_a3_ifly.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +16,13 @@ public class WelcomeController {
     @Autowired
     private UserService userService;
 
-    // Simulate a fixed user for demonstration
-    private final String MOCK_USERNAME = "test_user";
-
     @GetMapping("/")
-    public String index() {
-        User user = userService.getOrCreateUser(MOCK_USERNAME);
-        
+    public String index(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+
         if (user.isFirstLogin()) {
             return "redirect:/welcome";
         }
@@ -34,22 +35,26 @@ public class WelcomeController {
     }
 
     @GetMapping("/welcome")
-    public String welcome(Model model) {
-        User user = userService.getOrCreateUser(MOCK_USERNAME);
+    public String welcome(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) return "redirect:/login";
+
         model.addAttribute("user", user);
         
-        // Mark first login as false after showing welcome page
         if (user.isFirstLogin()) {
             user.setFirstLogin(false);
             userService.updateUser(user);
+            session.setAttribute("user", user);
         }
         
         return "welcome";
     }
 
     @GetMapping("/profile-setup")
-    public String profileSetup(Model model) {
-        User user = userService.getOrCreateUser(MOCK_USERNAME);
+    public String profileSetup(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) return "redirect:/login";
+
         model.addAttribute("user", user);
         return "profile-setup";
     }
@@ -57,20 +62,26 @@ public class WelcomeController {
     @PostMapping("/profile-setup")
     public String saveProfile(@RequestParam String fullName, 
                               @RequestParam String email, 
-                              @RequestParam String phoneNumber) {
-        User user = userService.getOrCreateUser(MOCK_USERNAME);
+                              @RequestParam String phoneNumber,
+                              HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) return "redirect:/login";
+
         user.setFullName(fullName);
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
         user.setHasFilledInfo(true);
         userService.updateUser(user);
+        session.setAttribute("user", user);
         
         return "redirect:/";
     }
     
     @GetMapping("/index")
-    public String home(Model model) {
-        User user = userService.getOrCreateUser(MOCK_USERNAME);
+    public String home(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) return "redirect:/login";
+
         model.addAttribute("user", user);
         return "index";
     }

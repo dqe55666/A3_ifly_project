@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="welcome-card">
-        <h1 class="display-4 mb-4">👋 欢迎回来!</h1>
+        <h1 class="display-4 mb-4">👋 欢迎回来, <span th:text="${user.username}"></span>!</h1>
         <p class="lead mb-4" th:if="${user.firstLogin}">很高兴见到你，这是你首次注册/登陆我们的系统。</p>
         <p class="lead mb-4" th:unless="${user.firstLogin}">欢迎再次使用 Project A3 iFly。</p>
         <div class="mt-4">
