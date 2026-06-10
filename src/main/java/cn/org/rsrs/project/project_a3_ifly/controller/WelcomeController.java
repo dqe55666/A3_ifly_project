@@ -17,7 +17,7 @@ public class WelcomeController {
     private UserService userService;
 
     @GetMapping("/")
-    public String index(HttpSession session) {
+    public String index(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
             return "redirect:/login";
@@ -30,7 +30,8 @@ public class WelcomeController {
         if (!user.isHasFilledInfo()) {
             return "redirect:/profile-setup";
         }
-        
+
+        model.addAttribute("user", user);
         return "index";
     }
 
@@ -60,14 +61,20 @@ public class WelcomeController {
     }
 
     @PostMapping("/profile-setup")
-    public String saveProfile(@RequestParam String fullName, 
-                              @RequestParam String email, 
+    public String saveProfile(@RequestParam String fullName,
+                              @RequestParam String gender,
+                              @RequestParam String className,
+                              @RequestParam Integer age,
+                              @RequestParam String email,
                               @RequestParam String phoneNumber,
                               HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user == null) return "redirect:/login";
 
         user.setFullName(fullName);
+        user.setGender(gender);
+        user.setClassName(className);
+        user.setAge(age);
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
         user.setHasFilledInfo(true);

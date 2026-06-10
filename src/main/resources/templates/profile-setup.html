@@ -17,15 +17,32 @@
         <form th:action="@{/profile-setup}" method="post">
             <div class="mb-3">
                 <label for="fullName" class="form-label">全名</label>
-                <input type="text" class="form-control" id="fullName" name="fullName" required placeholder="请输入您的姓名">
+                <input type="text" class="form-control" id="fullName" name="fullName" required placeholder="请输入您的姓名" th:value="${user.fullName}">
+            </div>
+            <div class="mb-3">
+                <label for="gender" class="form-label">性别</label>
+                <select class="form-select" id="gender" name="gender" required>
+                    <option value="" disabled th:selected="${user.gender == null}">请选择性别</option>
+                    <option value="男" th:selected="${user.gender == '男'}">男</option>
+                    <option value="女" th:selected="${user.gender == '女'}">女</option>
+                    <option value="其他" th:selected="${user.gender == '其他'}">其他</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="className" class="form-label">班级</label>
+                <input type="text" class="form-control" id="className" name="className" required placeholder="请输入您的班级" th:value="${user.className}">
+            </div>
+            <div class="mb-3">
+                <label for="age" class="form-label">年龄</label>
+                <input type="number" class="form-control" id="age" name="age" min="1" max="120" required placeholder="请输入您的年龄" th:value="${user.age}">
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">电子邮箱</label>
-                <input type="email" class="form-control" id="email" name="email" required placeholder="name@example.com">
+                <input type="email" class="form-control" id="email" name="email" required placeholder="name@example.com" th:value="${user.email}">
             </div>
             <div class="mb-3">
                 <label for="phoneNumber" class="form-label">手机号码</label>
-                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required placeholder="请输入手机号">
+                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required placeholder="请输入手机号" th:value="${user.phoneNumber}">
             </div>
             <div class="d-grid gap-2 mt-4">
                 <button type="submit" class="btn btn-primary">提交并保存</button>

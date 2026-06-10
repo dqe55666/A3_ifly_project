@@ -25,6 +25,9 @@
                         <p>欢迎来到你的个人中心。以下是你的信息：</p>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>用户名:</strong> <span th:text="${user.username}"></span></li>
+                            <li class="list-group-item"><strong>性别:</strong> <span th:text="${user.gender}"></span></li>
+                            <li class="list-group-item"><strong>班级:</strong> <span th:text="${user.className}"></span></li>
+                            <li class="list-group-item"><strong>年龄:</strong> <span th:text="${user.age}"></span></li>
                             <li class="list-group-item"><strong>邮箱:</strong> <span th:text="${user.email}"></span></li>
                             <li class="list-group-item"><strong>电话:</strong> <span th:text="${user.phoneNumber}"></span></li>
                         </ul>

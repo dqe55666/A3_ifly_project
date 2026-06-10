@@ -22,6 +22,9 @@ public class User {
     
     // Basic Info
     private String fullName;
+    private String gender;
+    private String className;
+    private Integer age;
     private String email;
     private String phoneNumber;
 }
