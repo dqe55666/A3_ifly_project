@@ -34,6 +34,52 @@ public class WelcomeController {
         model.addAttribute("user", user);
         return "index";
     }
+    
+    @GetMapping("/questionnaire")
+    public String showQuestionnaire(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        
+        model.addAttribute("user", user);
+        return "questionnaire";
+    }
+    
+    @PostMapping("/questionnaire")
+    public String submitQuestionnaire(@RequestParam String computerBase,
+                                     @RequestParam String programmingKnowledge,
+                                     @RequestParam(required = false) String[] knownLanguages,
+                                     @RequestParam String preferredLanguage,
+                                     @RequestParam String learningPurpose,
+                                     @RequestParam(required = false) String otherKnownLanguage,
+                                     @RequestParam(required = false) String otherPreferredLanguage,
+                                     @RequestParam(required = false) String otherLearningPurpose,
+                                     HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        
+        user.setComputerBase(computerBase);
+        user.setProgrammingKnowledge(programmingKnowledge);
+        
+        if (knownLanguages != null) {
+            user.setKnownLanguages(String.join(",", knownLanguages));
+        }
+        
+        user.setPreferredLanguage(preferredLanguage);
+        user.setLearningPurpose(learningPurpose);
+        user.setOtherKnownLanguage(otherKnownLanguage);
+        user.setOtherPreferredLanguage(otherPreferredLanguage);
+        user.setOtherLearningPurpose(otherLearningPurpose);
+        user.setHasCompletedQuestionnaire(true);
+        
+        userService.updateUser(user);
+        session.setAttribute("user", user);
+        
+        return "redirect:/";
+    }
 
     @GetMapping("/welcome")
     public String welcome(HttpSession session, Model model) {
@@ -91,5 +137,40 @@ public class WelcomeController {
 
         model.addAttribute("user", user);
         return "index";
+    }
+
+    @GetMapping("/parallax")
+    public String parallaxDemo() {
+        return "parallax-demo";
+    }
+
+    @GetMapping("/video-bg")
+    public String videoBgDemo() {
+        return "video-bg-demo";
+    }
+
+    @GetMapping("/scroll-transitions")
+    public String scrollTransitionsDemo() {
+        return "scroll-transitions";
+    }
+
+    @GetMapping("/fullscreen-nav")
+    public String fullscreenNavDemo() {
+        return "fullscreen-nav";
+    }
+
+    @GetMapping("/shadow-loader")
+    public String shadowLoaderDemo() {
+        return "shadow-loader";
+    }
+
+    @GetMapping("/reverse-hover")
+    public String reverseHoverDemo() {
+        return "reverse-hover";
+    }
+
+    @GetMapping("/text-align-center")
+    public String textAlignCenterDemo() {
+        return "text-align-center";
     }
 }

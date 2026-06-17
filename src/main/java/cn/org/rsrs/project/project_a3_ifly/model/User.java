@@ -27,4 +27,15 @@ public class User {
     private Integer age;
     private String email;
     private String phoneNumber;
+    
+    // Questionnaire Info
+    private boolean hasCompletedQuestionnaire = false;
+    private String computerBase;
+    private String programmingKnowledge;
+    private String knownLanguages;
+    private String preferredLanguage;
+    private String learningPurpose;
+    private String otherKnownLanguage;
+    private String otherPreferredLanguage;
+    private String otherLearningPurpose;
 }

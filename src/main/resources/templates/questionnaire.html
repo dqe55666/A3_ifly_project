@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>基础测试问卷 - Project A3 iFly</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            background: white;
+        }
+        .question-item {
+            margin-bottom: 30px;
+        }
+        .question-text {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .option-item:hover {
+            background: #e9ecef;
+        }
+        .option-item input[type="radio"],
+        .option-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            accent-color: #667eea;
+        }
+        .option-item label {
+            margin: 0;
+            cursor: pointer;
+            flex: 1;
+            font-size: 0.95rem;
+        }
+        .other-input {
+            margin-top: 8px;
+            margin-left: 30px;
+            display: none;
+        }
+        .other-input input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .other-input input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <form th:action="@{/questionnaire}" method="post">
+        <!-- 问题1 -->
+        <div class="question-item">
+            <div class="question-text">1. 你是否具备计算机基础？</div>
+            <div class="options-group">
+                <div class="option-item">
+                    <input type="radio" name="computerBase" id="q1a1" value="零基础" required>
+                    <label for="q1a1">零基础</label>
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="computerBase" id="q1a2" value="略有了解">
+                    <label for="q1a2">略有了解</label>
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="computerBase" id="q1a3" value="掌握常用电脑操作">
+                    <label for="q1a3">掌握常用电脑操作</label>
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="computerBase" id="q1a4" value="专业基础良好">
+                    <label for="q1a4">专业基础良好</label>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 问题2 -->
+        <div class="question-item">
+            <div class="question-text">2. 你是否了解过计算机编程语言？</div>
+            <div class="options-group">
+                <div class="option-item">
+                    <input type="radio" name="programmingKnowledge" id="q2a1" value="从未听说" required>
+                    <label for="q2a1">从未听说</label>
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="programmingKnowledge" id="q2a2" value="仅听过名称">
+                    <label for="q2a2">仅听过名称</label>
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="programmingKnowledge" id="q2a3" value="简单接触过">
+                    <label for="q2a3">简单接触过</label>
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="programmingKnowledge" id="q2a4" value="系统学习过1门及以上">
+                    <label for="q2a4">系统学习过 1 门及以上</label>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 问题3 -->
+        <div class="question-item">
+            <div class="question-text">3. 目前你接触过的语言有哪些？（可多选，无则选 "暂无"）</div>
+            <div class="options-group">
+                <div class="option-item">
+                    <input type="checkbox" name="knownLanguages" id="q3a1" value="Python">
+                    <label for="q3a1">Python</label>
+                </div>
+                <div class="option-item">
+                    <input type="checkbox" name="knownLanguages" id="q3a2" value="Java">
+                    <label for="q3a2">Java</label>
+                </div>
+                <div class="option-item">
+                    <input type="checkbox" name="knownLanguages" id="q3a3" value="C/C++">
+                    <label for="q3a3">C/C++</label>
+                </div>
+                <div class="option-item">
+                    <input type="checkbox" name="knownLanguages" id="q3a4" value="JavaScript">
+                    <label for="q3a4">JavaScript</label>
+                </div>
+                <div class="option-item">
+                    <input type="checkbox" name="knownLanguages" id="q3a5" value="暂无">
+                    <label for="q3a5">暂无</label>
+                </div>
+                <div class="option-item">
+                    <input type="checkbox" name="knownLanguages" id="q3a6" value="其他" class="other-checkbox">
+                    <label for="q3a6">其他</label>
+                </div>
+                <div class="other-input" id="other-known-language">
+                    <input type="text" name="otherKnownLanguage" placeholder="请填写其他语言">
+                </div>
+            </div>
+        </div>
+        
+        <!-- 问题4 -->
+        <div class="question-item">
+            <div class="question-text">4. 你最想优先学习的编程语言是？（单选）</div>
+            <div class="options-group">
+                <div class="option-item">
+                    <input type="radio" name="preferredLanguage" id="q4a1" value="Python" required>
+                    <label for="q4a1">Python</label>
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="preferredLanguage" id="q4a2" value="Java">
+                    <label for="q4a2">Java</label>
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="preferredLanguage" id="q4a3" value="C/C++">
+                    <label for="q4a3">C/C++</label>
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="preferredLanguage" id="q4a4" value="JavaScript">
+                    <label for="q4a4">JavaScript</label>
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="preferredLanguage" id="q4a5" value="Go">
+                    <label for="q4a5">Go</label>
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="preferredLanguage" id="q4a6" value="其他" class="other-radio">
+                    <label for="q4a6">其他</label>
+                </div>
+                <div class="other-input" id="other-preferred-language">
+                    <input type="text" name="otherPreferredLanguage" placeholder="请填写其他语言">
+                </div>
+            </div>
+        </div>
+        
+        <!-- 问题5 -->
+        <div class="question-item">
+            <div class="question-text">5. 你学习编程语言的主要目的？</div>
+            <div class="options-group">
+                <div class="option-item">
+                    <input type="radio" name="learningPurpose" id="q5a1" value="兴趣爱好" required>
+                    <label for="q5a1">兴趣爱好</label>
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="learningPurpose" id="q5a2" value="学业要求">
+                    <label for="q5a2">学业要求</label>
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="learningPurpose" id="q5a3" value="就业/提升技能">
+                    <label for="q5a3">就业 / 提升技能</label>
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="learningPurpose" id="q5a4" value="备考考证">
+                    <label for="q5a4">备考考证</label>
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="learningPurpose" id="q5a5" value="其他" class="other-radio">
+                    <label for="q5a5">其他</label>
+                </div>
+                <div class="other-input" id="other-learning-purpose">
+                    <input type="text" name="otherLearningPurpose" placeholder="请填写其他目的">
+                </div>
+            </div>
+        </div>
+        
+        <button type="submit" class="btn-submit">提交问卷</button>
+    </form>
+
+    <script>
+        // 处理"其他"选项的显示/隐藏
+        document.addEventListener('DOMContentLoaded', function() {
+            const otherCheckbox = document.querySelector('.other-checkbox');
+            const otherRadioButtons = document.querySelectorAll('.other-radio');
+            
+            if (otherCheckbox) {
+                otherCheckbox.addEventListener('change', function() {
+                    const inputDiv = document.getElementById('other-known-language');
+                    if (inputDiv) {
+                        inputDiv.style.display = this.checked ? 'block' : 'none';
+                    }
+                });
+            }
+            
+            otherRadioButtons.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    let inputId = '';
+                    if (radio.name === 'preferredLanguage') {
+                        inputId = 'other-preferred-language';
+                    } else if (radio.name === 'learningPurpose') {
+                        inputId = 'other-learning-purpose';
+                    }
+                    
+                    if (inputId) {
+                        const inputDiv = document.getElementById(inputId);
+                        if (inputDiv) {
+                            inputDiv.style.display = this.checked ? 'block' : 'none';
+                        }
+                    }
+                });
+            });
+            
+            // 处理问题3的"暂无"选项
+            const noOption = document.getElementById('q3a5');
+            const otherCheckboxes = document.querySelectorAll('input[name="knownLanguages"]:not(#q3a5)');
+            
+            if (noOption) {
+                noOption.addEventListener('change', function() {
+                    if (this.checked) {
+                        otherCheckboxes.forEach(cb => {
+                            cb.checked = false;
+                        });
+                    }
+                });
+                
+                otherCheckboxes.forEach(cb => {
+                    cb.addEventListener('change', function() {
+                        if (this.checked && noOption.checked) {
+                            noOption.checked = false;
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
