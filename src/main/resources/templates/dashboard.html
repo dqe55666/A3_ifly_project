@@ -617,48 +617,7 @@
 
                 <!-- 聊天消息列表 -->
                 <div class="chat-messages" id="chatMessages">
-                    <!-- 示例消息 - AI -->
-                    <div class="message">
-                        <div class="message-avatar">
-                            <i class="bi bi-robot"></i>
-                        </div>
-                        <div class="message-content">
-                            <div class="message-bubble">
-                                你好！👋 我是你的 AI 学习助手，很高兴为你服务！你可以问我任何关于编程学习的问题，我会尽力帮助你。
-                            </div>
-                            <div class="message-time">今天 10:00</div>
-                        </div>
-                    </div>
-
-                    <!-- 示例消息 - 用户 -->
-                    <div class="message user">
-                        <div class="message-avatar">
-                            <i class="bi bi-person"></i>
-                        </div>
-                        <div class="message-content">
-                            <div class="message-bubble">
-                                你好！我想学习 Python 编程，应该从哪里开始呢？
-                            </div>
-                            <div class="message-time">今天 10:01</div>
-                        </div>
-                    </div>
-
-                    <!-- 示例消息 - AI -->
-                    <div class="message">
-                        <div class="message-avatar">
-                            <i class="bi bi-robot"></i>
-                        </div>
-                        <div class="message-content">
-                            <div class="message-bubble">
-                                太好了！Python 是一门非常适合初学者的编程语言。我建议你从以下几个方面开始：<br><br>
-                                1. 安装 Python 环境<br>
-                                2. 学习基础语法（变量、数据类型、循环、条件语句）<br>
-                                3. 练习写一些简单的小程序<br><br>
-                                需要我详细讲解哪个部分吗？
-                            </div>
-                            <div class="message-time">今天 10:01</div>
-                        </div>
-                    </div>
+                    <!-- 消息将在这里动态添加 -->
                 </div>
 
                 <!-- 聊天输入区域 -->
@@ -896,6 +855,34 @@
                 });
             });
 
+            // 获取当前时间
+            function getCurrentTime() {
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                return '今天 ' + hours + ':' + minutes;
+            }
+
+            // 添加用户消息到对话框
+            function addUserMessage(content) {
+                const chatMessages = document.getElementById('chatMessages');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message user';
+                
+                messageDiv.innerHTML = `
+                    <div class="message-avatar">
+                        <i class="bi bi-person"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-bubble">${content}</div>
+                        <div class="message-time">${getCurrentTime()}</div>
+                    </div>
+                `;
+                
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
             // 聊天输入框自动高度
             const messageInput = document.getElementById('messageInput');
             messageInput.addEventListener('input', function() {
@@ -903,13 +890,12 @@
                 this.style.height = Math.min(this.scrollHeight, 120) + 'px';
             });
 
-            // 发送按钮点击（仅UI，无实际功能）
+            // 发送按钮点击
             const sendBtn = document.getElementById('sendBtn');
             sendBtn.addEventListener('click', function() {
                 const message = messageInput.value.trim();
                 if (message) {
-                    // 这里只做UI演示，不实际发送
-                    console.log('发送消息:', message);
+                    addUserMessage(message);
                     messageInput.value = '';
                     messageInput.style.height = 'auto';
                 }
