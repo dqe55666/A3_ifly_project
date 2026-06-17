@@ -32,7 +32,7 @@ public class WelcomeController {
         }
 
         model.addAttribute("user", user);
-        return "index";
+        return "dashboard";
     }
     
     @GetMapping("/questionnaire")
